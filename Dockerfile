@@ -20,25 +20,11 @@ RUN ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 # change work directory to /data which is where the application files are going to be
 WORKDIR /data
 
+RUN git clone https://github.com/rauchg/chat-example.git /data/chat
+
+RUN cd chat && npm install 
+
+CMD cd chat && node index.js
 
 
-# ssh config...
-RUN mkdir -p /root/.ssh
-ADD id_rsa /root/.ssh/id_rsa
-RUN chmod 700 /root/.ssh/id_rsa
-RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
-
-
-# Create known_hosts
-RUN touch /root/.ssh/known_hosts
-RUN ssh-keyscan -T 60 github.com >> /root/.ssh/known_hosts
-
-#RUN git clone git@github.com:KnowRe/INADM-SERVER.git
-
-#ADD start.sh /data/
-#RUN chmod +x /data/start.sh
-
-EXPOSE 5000:5000
-ENV PORT 5000
-
-#CMD sh /data/start.sh
+EXPOSE 3000:3000
