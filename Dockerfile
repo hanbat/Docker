@@ -25,6 +25,6 @@ RUN git clone https://github.com/rauchg/chat-example.git /data/chat
 RUN cd chat && npm install 
 
 CMD cd chat && node index.js
-
+RUN echo 'HIHI'
 
 EXPOSE 3000:3000
